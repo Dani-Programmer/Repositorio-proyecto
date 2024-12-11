@@ -11,7 +11,7 @@ public class AccountManagementScreen extends JPanel {
     private JButton backButton;
 
     public AccountManagementScreen() {
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridLayout(4,2));
 
         JLabel serviceLabel = new JLabel("Service Name:");
         serviceField = new JTextField();
@@ -35,7 +35,6 @@ public class AccountManagementScreen extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String service = serviceField.getText();
                 String password = new String(passwordField.getPassword());
-                // Aquí deberías guardar la cuenta
                 JOptionPane.showMessageDialog(null, "Account added successfully.");
             }
         });
@@ -43,7 +42,6 @@ public class AccountManagementScreen extends JPanel {
         viewAccountsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí deberías mostrar las cuentas guardadas
                 JOptionPane.showMessageDialog(null, "Viewing accounts...");
             }
         });
@@ -51,7 +49,6 @@ public class AccountManagementScreen extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí deberías volver a la pantalla principal
             }
         });
     }

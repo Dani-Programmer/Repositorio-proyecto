@@ -8,23 +8,50 @@ public class LoginScreen extends JPanel {
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton registerButton;
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
 
-    public LoginScreen() {
-        setLayout(new GridLayout(3, 2));
+    public LoginScreen(CardLayout cardLayout, JPanel cardPanel) {
+        this.cardLayout = cardLayout;
+        this.cardPanel = cardPanel;
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20,20,20,20);
 
         JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField();
+        usernameField = new JTextField(10);
+        passwordField = new JPasswordField(10);
         loginButton = new JButton("Login");
         registerButton = new JButton("Register");
 
-        add(usernameLabel);
-        add(usernameField);
-        add(passwordLabel);
-        add(passwordField);
-        add(loginButton);
-        add(registerButton);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(usernameLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(passwordLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(loginButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(registerButton, gbc);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -33,7 +60,7 @@ public class LoginScreen extends JPanel {
                 String password = new String(passwordField.getPassword());
                 if (username.equals("admin") && password.equals("admin")) {
                     JOptionPane.showMessageDialog(null, "Login successful!");
-                    // Aquí deberías cambiar a la pantalla principal
+                    cardLayout.show(cardPanel, "MainScreen");
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid username or password.");
                 }
@@ -43,10 +70,8 @@ public class LoginScreen extends JPanel {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí deberías cambiar a la pantalla de registro
+                cardLayout.show(cardPanel, "RegisterScreen");
             }
         });
     }
 }
-
-

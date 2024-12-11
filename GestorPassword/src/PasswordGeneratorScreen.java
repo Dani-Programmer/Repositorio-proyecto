@@ -1,28 +1,59 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import javax.swing.*;
 
 public class PasswordGeneratorScreen extends JPanel {
     private JTextField lengthField;
     private JButton generateButton;
     private JButton backButton;
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
 
-    public PasswordGeneratorScreen() {
-        setLayout(new GridLayout(3, 2));
+    public PasswordGeneratorScreen(CardLayout cardLayout, JPanel cardPanel) {
+        this.cardLayout = cardLayout;
+        this.cardPanel = cardPanel;
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 20, 20, 20); 
 
         JLabel lengthLabel = new JLabel("Password Length:");
-        lengthField = new JTextField();
+        lengthField = new JTextField(20); 
         generateButton = new JButton("Generate Password");
         backButton = new JButton("Back to Main Screen");
 
-        add(lengthLabel);
-        add(lengthField);
-        add(generateButton);
-        add(new JLabel());
-        add(new JLabel());
-        add(backButton);
+        // Ajustar tamaño de los botones
+        Dimension buttonSize = new Dimension(150, 40); 
+        generateButton.setPreferredSize(buttonSize);
+        backButton.setPreferredSize(buttonSize);
+
+        // Ajustar tamaño de la fuente
+        Font font = new Font("Arial", Font.PLAIN, 18); 
+        lengthLabel.setFont(font);
+        lengthField.setFont(font);
+        generateButton.setFont(font);
+        backButton.setFont(font);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(lengthLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        add(lengthField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(generateButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(backButton, gbc);
 
         generateButton.addActionListener(new ActionListener() {
             @Override
@@ -36,7 +67,7 @@ public class PasswordGeneratorScreen extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí deberías volver a la pantalla principal
+                cardLayout.show(cardPanel, "MainScreen");
             }
         });
     }
@@ -54,4 +85,3 @@ public class PasswordGeneratorScreen extends JPanel {
         return password.toString();
     }
 }
-
