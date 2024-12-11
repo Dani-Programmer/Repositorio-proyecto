@@ -1,42 +1,58 @@
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AccountManagementScreen {
-    public static void manageAccounts(Scanner scanner) {
-        while (true) {
-            System.out.println("1. Add Account");
-            System.out.println("2. View Accounts");
-            System.out.println("3. Back to Main Screen");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
+public class AccountManagementScreen extends JPanel {
+    private JTextField serviceField;
+    private JPasswordField passwordField;
+    private JButton addAccountButton;
+    private JButton viewAccountsButton;
+    private JButton backButton;
 
-            switch (choice) {
-                case 1:
-                    addAccount(scanner);
-                    break;
-                case 2:
-                    viewAccounts();
-                    break;
-                case 3:
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+    public AccountManagementScreen() {
+        setLayout(new GridLayout(4, 2));
+
+        JLabel serviceLabel = new JLabel("Service Name:");
+        serviceField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordField = new JPasswordField();
+        addAccountButton = new JButton("Add Account");
+        viewAccountsButton = new JButton("View Accounts");
+        backButton = new JButton("Back to Main Screen");
+
+        add(serviceLabel);
+        add(serviceField);
+        add(passwordLabel);
+        add(passwordField);
+        add(addAccountButton);
+        add(viewAccountsButton);
+        add(new JLabel());
+        add(backButton);
+
+        addAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String service = serviceField.getText();
+                String password = new String(passwordField.getPassword());
+                // Aquí deberías guardar la cuenta
+                JOptionPane.showMessageDialog(null, "Account added successfully.");
             }
-        }
-    }
+        });
 
-    private static void addAccount(Scanner scanner) {
-        System.out.print("Enter the service name: ");
-        String service = scanner.nextLine();
-        System.out.print("Enter the password: ");
-        String password = scanner.nextLine();
+        viewAccountsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí deberías mostrar las cuentas guardadas
+                JOptionPane.showMessageDialog(null, "Viewing accounts...");
+            }
+        });
 
-        
-        System.out.println("Account added successfully.");
-    }
-
-    private static void viewAccounts() {
-        
-        System.out.println("Viewing accounts...");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí deberías volver a la pantalla principal
+            }
+        });
     }
 }
