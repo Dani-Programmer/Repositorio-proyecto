@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Jenkins ya clonará el código automáticamente, este paso es más explícito
+                git branch: 'main', url: 'https://github.com/Dani-Programmer/Repositorio-proyecto'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Compilando mi proyecto...'
+                // Aquí irían comandos como 'sh "mvn compile"'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Ejecutando pruebas...'
+            }
+        }
+    }
+}
